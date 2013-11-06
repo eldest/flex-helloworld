@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sample</groupId>
+    <artifactId>helloworld</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>swf</packaging>
+
+    <properties>
+        <flexmojos.version>6.0.1</flexmojos.version>
+        <flex.framework.version>4.9.1.1447119</flex.framework.version>
+        <playerglobal.version>11.8</playerglobal.version>
+        <project.encoding>windows-1251</project.encoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.flex.framework</groupId>
+            <artifactId>flex-framework</artifactId>
+            <version>${flex.framework.version}</version>
+            <type>pom</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.adobe.flash.framework</groupId>
+                    <artifactId>playerglobal</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.adobe.flash.framework</groupId>
+            <artifactId>playerglobal</artifactId>
+            <version>${playerglobal.version}</version>
+            <type>swc</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>${basedir}/src/main/flex</sourceDirectory>
+        <testSourceDirectory>${basedir}/src/test/flex</testSourceDirectory>
+        <!--<directory>../${webapp.directory}</directory>-->
+
+        <plugins>
+            <plugin>
+                <groupId>net.flexmojos.oss</groupId>
+                <artifactId>flexmojos-maven-plugin</artifactId>
+                <version>${flexmojos.version}</version>
+
+                <extensions>true</extensions>
+
+                <configuration>
+                    <storepass/>
+                    <quick>true</quick>
+                    <windowTitle>FlexmojosSample</windowTitle>
+                    <finalName>index</finalName>
+                    <!--<targetPlayer>11.4</targetPlayer>-->
+
+                    <sourceFile>index.mxml</sourceFile>
+                    <debug>true</debug>
+                    <swfVersion>11</swfVersion>
+                    <keepAllTypeSelectors>true</keepAllTypeSelectors>
+
+                    <!--<defaultScriptLimits>-->                            <!-- bug IDEA-113508 -->
+                        <!--<maxRecursionDepth>1000</maxRecursionDepth>-->
+                        <!--<maxExecutionTime>60</maxExecutionTime>-->
+                    <!--</defaultScriptLimits>-->
+
+                    <localesCompiled>
+                        <compiled>en_US</compiled>
+                        <!--<compiled>ru_RU</compiled>-->
+                    </localesCompiled>
+
+                    <compilerWarnings>
+                        <warn-no-constructor>false</warn-no-constructor>
+                    </compilerWarnings>
+
+                    <parameters>
+                        <title>${project.parent.artifactId}</title>
+                        <swf>index</swf>
+                        <width>100%</width>
+                        <height>100%</height>
+                        <bgcolor>#ffffff</bgcolor>
+                    </parameters>
+                </configuration>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.flex</groupId>
+                        <artifactId>compiler</artifactId>
+                        <version>${flex.framework.version}</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>
